@@ -107,13 +107,6 @@ def main(args):
             sub_file = create_condor_submission_file(args.fit_dir, bin_name, log_dir, args.postfit)
             submit_to_condor(sub_file)
 
-    for b in range(301, 320):
-        if b not in [310, 320]:
-            bin_name = mt_name_base + str(b) + "_" +  args.era
-            print(f"Submitting bin: {bin_name}")
-            sub_file = create_condor_submission_file(args.fit_dir, bin_name, log_dir, args.postfit)
-            submit_to_condor(sub_file)
-
     for b in range(401, 420):
         if b not in [410, 420]:
             bin_name = mt_name_base + str(b) + "_" +  args.era
