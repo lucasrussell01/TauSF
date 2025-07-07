@@ -103,7 +103,7 @@ cr_bins=[]
 
 if dm_bins:
   cats['mt'] = []
-  for i, dm in enumerate([0,1,2,10,11]):
+  for i, dm in enumerate([0,1,10,11]):
     cats['mt'] += [
     ((i+1)*100+1,  'mt_DM%i_tau_cp_mTLt65%s_pT_20_to_25'   % (dm,cat_extra)),
     ((i+1)*100+2,  'mt_DM%i_tau_cp_mTLt65%s_pT_25_to_30'   % (dm,cat_extra)),
@@ -199,11 +199,10 @@ for chn in channels:
 inclusive_bins = [1,2,3,4,5,6,7,8,9, 11,12,13,14,15,16,17,18,19]# , 21,22,23,24,25,26,27,28,29]
 dm0_bins = [101,102,103,104,105,106,107,108,109, 111,112,113,114,115,116,117,118,119]#, 121,122,123,124,125,126,127,128,129]
 dm1_bins = [201,202,203,204,205,206,207,208,209, 211,212,213,214,215,216,217,218,219]#, 221,222,223,224,225,226,227,228,229]
-dm2_bins = [301,302,303,304,305,306,307,308,309, 311,312,313,314,315,316,317,318,319]#, 321,322,323,324,325,326,327,328,329]
 dm10_bins = [401,402,403,404,405,406,407,408,409, 411,412,413,414,415,416,417,418,419]#, 421,422,423,424,425,426,427,428,429]
 dm11_bins = [501,502,503,504,505,506,507,508,509, 511,512,513,514,515,516,517,518,519]#, 521,522,523,524,525,526,527,528,529]
 
-all_mt_bins = inclusive_bins + dm0_bins + dm1_bins + dm2_bins + dm10_bins + dm11_bins
+all_mt_bins = inclusive_bins + dm0_bins + dm1_bins + dm10_bins + dm11_bins
 
 # muon selection efficiency for second muon in di-muon dataset
 # better to shift the muon efficiency to the mt channel processes (will effectivly shift these in the opposite direction)
@@ -230,20 +229,12 @@ cb.cp().process(['TTL','TTJ','TTT']).AddSyst(cb, "CMS_htt_ttbarShape", "shape", 
 # TES uncertainties
 cb.cp().channel(['mt']).process(['ZTT','TTT','TTL','VVT','VVL']).bin_id(dm0_bins+inclusive_bins).AddSyst(cb, "CMS_scale_t_1prong_$ERA","shape", ch.SystMap()(1.0))
 cb.cp().channel(['mt']).process(['ZTT','TTT','TTL','VVT','VVL']).bin_id(dm1_bins+inclusive_bins).AddSyst(cb, "CMS_scale_t_1prong1pizero_$ERA","shape", ch.SystMap()(1.0))
-cb.cp().channel(['mt']).process(['ZTT','TTT','TTL','VVT','VVL']).bin_id(dm2_bins+inclusive_bins).AddSyst(cb, "CMS_scale_t_1prong2pizero_$ERA","shape", ch.SystMap()(1.0))
 cb.cp().channel(['mt']).process(['ZTT','TTT','TTL','VVT','VVL']).bin_id(dm10_bins+inclusive_bins).AddSyst(cb, "CMS_scale_t_3prong_$ERA", "shape", ch.SystMap()(1.0))
 cb.cp().channel(['mt']).process(['ZTT','TTT','TTL','VVT','VVL']).bin_id(dm11_bins+inclusive_bins).AddSyst(cb, "CMS_scale_t_3prong1pizero_$ERA", "shape", ch.SystMap()(1.0))
 
 # mu->tauh energy scale split by decay mode (might want to eventually make sure these don't get added for dm 10 and 11)
 cb.cp().channel(['mt']).process(['ZL']).bin_id(dm0_bins+inclusive_bins).AddSyst(cb, "CMS_scale_mu_1prong_$ERA", "shape", ch.SystMap()(1.00))
 cb.cp().channel(['mt']).process(['ZL']).bin_id(dm1_bins+inclusive_bins).AddSyst(cb, "CMS_scale_mu_1prong1pizero_$ERA", "shape", ch.SystMap()(1.00))
-
-if "Run3_2023" in eras:
-  print(f"\n\n\n WARNING, temp fix for 23 \n\n\n\n")
-  cb.cp().channel(['mt']).process(['ZL']).bin_id([b for b in dm2_bins if b != 305]+inclusive_bins).AddSyst(cb, "CMS_scale_mu_1prong2pizero_$ERA", "shape", ch.SystMap()(1.00))
-else:
-  print(f"\n\n\n Using bin 305 as usual \n\n\n\n")
-  cb.cp().channel(['mt']).process(['ZL']).bin_id(dm2_bins+inclusive_bins).AddSyst(cb, "CMS_scale_mu_1prong2pizero_$ERA", "shape", ch.SystMap()(1.00))
 
 #MET related uncertainties
 if any(era in eras for era in ['2016_preVFP', '2016_postVFP', '2017', '2018','Run3_2022','Run3_2022EE','Run3_2023','Run3_2023BPix']):
@@ -254,7 +245,6 @@ if any(era in eras for era in ['2016_preVFP', '2016_postVFP', '2017', '2018','Ru
 cb.cp().channel(['mt']).process(['TTJ','VVJ','ZJ']).bin_id(inclusive_bins).AddSyst(cb, "CMS_j_fake_t", "lnN", ch.SystMap()(1.2))
 cb.cp().channel(['mt']).process(['TTJ','VVJ','ZJ']).bin_id(dm0_bins).AddSyst(cb, "CMS_j_fake_t_DM0", "lnN", ch.SystMap()(1.2))
 cb.cp().channel(['mt']).process(['TTJ','VVJ','ZJ']).bin_id(dm1_bins).AddSyst(cb, "CMS_j_fake_t_DM1", "lnN", ch.SystMap()(1.2))
-cb.cp().channel(['mt']).process(['TTJ','VVJ','ZJ']).bin_id(dm2_bins).AddSyst(cb, "CMS_j_fake_t_DM2", "lnN", ch.SystMap()(1.2))
 cb.cp().channel(['mt']).process(['TTJ','VVJ','ZJ']).bin_id(dm10_bins).AddSyst(cb, "CMS_j_fake_t_DM10", "lnN", ch.SystMap()(1.2))
 cb.cp().channel(['mt']).process(['TTJ','VVJ','ZJ']).bin_id(dm11_bins).AddSyst(cb, "CMS_j_fake_t_DM11", "lnN", ch.SystMap()(1.2))
 # add a part decoupled by pT/DM bin
@@ -272,7 +262,6 @@ if any(era in eras for era in ['Run3_2022','Run3_2022EE','Run3_2023','Run3_2023B
   cb.cp().channel(['mt']).process(['ZL']).bin_id(inclusive_bins).AddSyst(cb, "CMS_l_fake_t", "lnN", ch.SystMap()(1.5))
   cb.cp().channel(['mt']).process(['ZL']).bin_id(dm0_bins).AddSyst(cb, "CMS_l_fake_t_DM0", "lnN", ch.SystMap()(1.5))
   cb.cp().channel(['mt']).process(['ZL']).bin_id(dm1_bins).AddSyst(cb, "CMS_l_fake_t_DM1", "lnN", ch.SystMap()(1.5))
-  cb.cp().channel(['mt']).process(['ZL']).bin_id(dm2_bins).AddSyst(cb, "CMS_l_fake_t_DM2", "lnN", ch.SystMap()(1.5))
   cb.cp().channel(['mt']).process(['ZL']).bin_id(dm10_bins).AddSyst(cb, "CMS_l_fake_t_DM10", "lnN", ch.SystMap()(1.5))
   cb.cp().channel(['mt']).process(['ZL']).bin_id(dm11_bins).AddSyst(cb, "CMS_l_fake_t_DM11", "lnN", ch.SystMap()(1.5))
   # add a part decoupled by pT/DM bin
@@ -295,7 +284,7 @@ cb.cp().channel(['mt']).process(["ZTT", "TTT", 'TTL', "VVT", 'VVL']).bin_id([7,1
 cb.cp().channel(['mt']).process(["ZTT", "TTT", 'TTL', "VVT", 'VVL']).bin_id([8,18]).AddSyst(cb, "rate_tauSF_DMinclusive_pT80to100_$ERA","rateParam",ch.SystMap()(1.0))
 cb.cp().channel(['mt']).process(["ZTT", "TTT", 'TTL', "VVT", 'VVL']).bin_id([9,19]).AddSyst(cb, "rate_tauSF_DMinclusive_pT100to200_$ERA","rateParam",ch.SystMap()(1.0))
 
-for i, dm in enumerate([0,1,2,10,11]):
+for i, dm in enumerate([0,1,10,11]):
   
 # if want to merge pt bins:
   # if (dm == 2) or (dm == 11):
@@ -333,7 +322,7 @@ if useCRs:
 
     cb.cp().channel(['mt']).process([p]).bin_id([5,15]+[6,16]+[7,17]+[8,18]+[9,19]).AddSyst(cb, "rate_%s_pT40to200_$ERA" %p,"rateParam",ch.SystMap()(1.0))
 
-    for i, dm in enumerate([0,1,2,10,11]):
+    for i, dm in enumerate([0,1,10,11]):
       cb.cp().channel(['mt']).process([p]).bin_id([(i+1)*100+1+x for x in [0,10]]).AddSyst(cb, "rate_%s_DM%i_pT20to25_$ERA" % (p,dm) ,"rateParam",ch.SystMap()(1.0))
       cb.cp().channel(['mt']).process([p]).bin_id([(i+1)*100+2+x for x in [0,10]]).AddSyst(cb, "rate_%s_DM%i_pT25to30_$ERA" % (p,dm) ,"rateParam",ch.SystMap()(1.0))
       cb.cp().channel(['mt']).process([p]).bin_id([(i+1)*100+3+x for x in [0,10]]).AddSyst(cb, "rate_%s_DM%i_pT30to35_$ERA" % (p,dm) ,"rateParam",ch.SystMap()(1.0))
@@ -422,7 +411,7 @@ cb.cp().channel(['mt']).process(['W']).AddSyst(cb, "CMS_scale_jfake", "shape", c
 # set sensible ranges for all rate params
 for era in eras:
   cb.GetParameter("rate_DY_%s" % era).set_range(0.5,1.5)
-  for i, dm in enumerate([0,1,2,10,11]):
+  for i, dm in enumerate([0,1,10,11]):
     pt_bins = [20,25,30,35,40,200]
     for j in range(5):
       # cb.GetParameter("rate_QCD_DM%i_pT%ito%i_%s" %(dm, pt_bins[j], pt_bins[j+1], era)).set_range(0.5,3)
@@ -446,7 +435,7 @@ for chn in channels:
 
 # scaling QCD central value for all datacards except the QCD CR ones
 if useCRs:
-   for i, dm in enumerate([0,1,2,10,11]):
+   for i, dm in enumerate([0,1,10,11]):
     cb.cp().channel(['mt']).process(['QCD']).bin_id([(i+1)*100+1+x for x in [0,10]]).ForEachProc(lambda x: x.set_rate(x.rate()*qcd_scales[i]))
     cb.cp().channel(['mt']).process(['QCD']).bin_id([(i+1)*100+2+x for x in [0,10]]).ForEachProc(lambda x: x.set_rate(x.rate()*qcd_scales[i]))
     cb.cp().channel(['mt']).process(['QCD']).bin_id([(i+1)*100+3+x for x in [0,10]]).ForEachProc(lambda x: x.set_rate(x.rate()*qcd_scales[i]))
@@ -466,14 +455,12 @@ for era in eras:
 if dm_bins:
   cb.cp().bin_id(dm0_bins).RenameSystematic(cb,'CMS_scale_jfake','CMS_scale_jfake_DM0')
   cb.cp().bin_id(dm1_bins).RenameSystematic(cb,'CMS_scale_jfake','CMS_scale_jfake_DM1')
-  cb.cp().bin_id(dm2_bins).RenameSystematic(cb,'CMS_scale_jfake','CMS_scale_jfake_DM2')
   cb.cp().bin_id(dm10_bins).RenameSystematic(cb,'CMS_scale_jfake','CMS_scale_jfake_DM10')
   cb.cp().bin_id(dm11_bins).RenameSystematic(cb,'CMS_scale_jfake','CMS_scale_jfake_DM11')
 
   for era in eras:
     cb.cp().bin_id(dm0_bins).RenameSystematic(cb,'CMS_scale_jfake_%s' % era,'CMS_scale_jfake_DM0_%s' % era)
     cb.cp().bin_id(dm1_bins).RenameSystematic(cb,'CMS_scale_jfake_%s' % era,'CMS_scale_jfake_DM1_%s' % era)
-    cb.cp().bin_id(dm2_bins).RenameSystematic(cb,'CMS_scale_jfake_%s' % era,'CMS_scale_jfake_DM2_%s' % era)
     cb.cp().bin_id(dm10_bins).RenameSystematic(cb,'CMS_scale_jfake_%s' % era,'CMS_scale_jfake_DM10_%s' % era)
     cb.cp().bin_id(dm11_bins).RenameSystematic(cb,'CMS_scale_jfake_%s' % era,'CMS_scale_jfake_DM11_%s' % era)
 
@@ -553,7 +540,7 @@ if not dm_bins:
   if any(era in eras for era in ['Run3_2022', 'Run3_2022EE', 'Run3_2023', 'Run3_2023BPix']):
     cb.AddDatacardLineAtEnd("byErasAndBins group = CMS_eff_m CMS_j_fake_m CMS_htt_vvXsec CMS_htt_tjXsec CMS_htt_dyShape CMS_htt_ttbarShape CMS_j_fake_t CMS_l_fake_t CMS_scale_jfake"+extra_systs)
     # add a group for systematics that are correlated by bins (excluding the uncertainties from the bins and eras group)
-    systs_for_group = ["CMS_scale_t_1prong", "CMS_scale_t_1prong1pizero", "CMS_scale_t_1prong2pizero", "CMS_scale_t_3prong", "CMS_scale_t_3prong1pizero", "CMS_scale_mu_1prong", "CMS_scale_mu_1prong1pizero", "CMS_scale_mu_1prong2pizero", "CMS_res_j", "CMS_scale_j", "rate_DY", "CMS_scale_jfake"]
+    systs_for_group = ["CMS_scale_t_1prong", "CMS_scale_t_1prong1pizero", "CMS_scale_t_3prong", "CMS_scale_t_3prong1pizero", "CMS_scale_mu_1prong", "CMS_scale_mu_1prong1pizero", "CMS_res_j", "CMS_scale_j", "rate_DY", "CMS_scale_jfake"]
   else:
     cb.AddDatacardLineAtEnd("byErasAndBins group = CMS_eff_m CMS_scale_j_Absolute CMS_scale_j_BBEC1 CMS_scale_j_EC2 CMS_scale_j_FlavorQCD CMS_scale_j_HF CMS_scale_j_RelativeBal CMS_j_fake_m CMS_htt_vvXsec CMS_htt_tjXsec CMS_htt_dyShape CMS_htt_ttbarShape CMS_j_fake_t CMS_l_fake_t CMS_scale_jfake"+extra_systs)
     systs_for_group = ["CMS_scale_t_1prong", "CMS_scale_t_1prong1pizero", "CMS_scale_t_3prong", "CMS_scale_t_3prong1pizero", "CMS_ZLShape_mt_1prong", "CMS_ZLShape_mt_1prong1pizero", "CMS_res_j", "CMS_scale_met_unclustered", "CMS_scale_j_Absolute_year", "CMS_scale_j_BBEC1_year", "CMS_scale_j_EC2_year", "CMS_scale_j_HF_year", "CMS_scale_j_RelativeSample_year", "rate_DY", "CMS_scale_jfake"]
@@ -561,20 +548,18 @@ if not dm_bins:
     systs_for_group+=["rate_QCD", "rate_W"]
 else:
   if any(era in eras for era in ['Run3_2022', 'Run3_2022EE', 'Run3_2023', 'Run3_2023BPix']):
-    cb.AddDatacardLineAtEnd("byErasAndBins group = CMS_eff_m CMS_j_fake_m CMS_htt_vvXsec CMS_htt_tjXsec CMS_htt_dyShape CMS_htt_ttbarShape CMS_j_fake_t_DM0 CMS_j_fake_t_DM1 CMS_j_fake_t_DM2 CMS_j_fake_t_DM10 CMS_j_fake_t_DM11 CMS_l_fake_t_DM0 CMS_l_fake_t_DM1 CMS_l_fake_t_DM2 CMS_l_fake_t_DM10 CMS_l_fake_t_DM11 CMS_scale_jfake_DM0 CMS_scale_jfake_DM1 CMS_scale_jfake_DM2 CMS_scale_jfake_DM10 CMS_scale_jfake_DM11"+extra_systs)
+    cb.AddDatacardLineAtEnd("byErasAndBins group = CMS_eff_m CMS_j_fake_m CMS_htt_vvXsec CMS_htt_tjXsec CMS_htt_dyShape CMS_htt_ttbarShape CMS_j_fake_t_DM0 CMS_j_fake_t_DM1 CMS_j_fake_t_DM10 CMS_j_fake_t_DM11 CMS_l_fake_t_DM0 CMS_l_fake_t_DM1 CMS_l_fake_t_DM10 CMS_l_fake_t_DM11 CMS_scale_jfake_DM0 CMS_scale_jfake_DM1 CMS_scale_jfake_DM10 CMS_scale_jfake_DM11"+extra_systs)
     # add a group for systematics that are correlated by bins (excluding the uncertainties from the bins and eras group)
     systs_for_group = ["CMS_res_j", "CMS_scale_j","rate_DY"]
   else:
     cb.AddDatacardLineAtEnd("byErasAndBins group = CMS_eff_m CMS_scale_j_Absolute CMS_scale_j_BBEC1 CMS_scale_j_EC2 CMS_scale_j_FlavorQCD CMS_scale_j_HF CMS_scale_j_RelativeBal CMS_j_fake_m CMS_htt_vvXsec CMS_htt_tjXsec CMS_htt_dyShape CMS_htt_ttbarShape CMS_j_fake_t_DM0 CMS_j_fake_t_DM1 CMS_j_fake_t_DM10 CMS_j_fake_t_DM11 CMS_l_fake_t_DM0 CMS_l_fake_t_DM1 CMS_l_fake_t_DM10 CMS_l_fake_t_DM11 CMS_scale_jfake_DM0 CMS_scale_jfake_DM1 CMS_scale_jfake_DM10 CMS_scale_jfake_DM11"+extra_systs)
     systs_for_group = ["CMS_res_j", "CMS_scale_met_unclustered", "CMS_scale_j_Absolute_year", "CMS_scale_j_BBEC1_year", "CMS_scale_j_EC2_year", "CMS_scale_j_HF_year", "CMS_scale_j_RelativeSample_year", "rate_DY"]
 
-  for dm in [0,1,2,10,11]:
+  for dm in [0,1,10,11]:
     if dm==0:
       systs = ['CMS_scale_t_1prong','CMS_scale_mu_1prong']
     if dm==1:
       systs = ['CMS_scale_t_1prong1pizero','CMS_scale_mu_1prong1pizero']
-    if dm==2:
-      systs = ['CMS_scale_t_1prong2pizero','CMS_scale_mu_1prong2pizero']
     if dm==10:
       systs = ['CMS_scale_t_3prong']
     if dm==11:
@@ -604,7 +589,7 @@ for s in systs_for_group:
 print(group_str)
 cb.AddDatacardLineAtEnd(group_str)
 
-tes_uncerts = ['CMS_scale_t_1prong', 'CMS_scale_t_1prong1pizero', 'CMS_scale_t_1prong2pizero', 'CMS_scale_t_3prong', 'CMS_scale_t_3prong1pizero']
+tes_uncerts = ['CMS_scale_t_1prong', 'CMS_scale_t_1prong1pizero', 'CMS_scale_t_3prong', 'CMS_scale_t_3prong1pizero']
 tes_group_string = 'TES group ='
 for s in tes_uncerts:
   for era in eras:
