@@ -15,9 +15,9 @@ temp_pois=[
   "rate_tauSF_DM$DM_pT100to200_$YEAR",
 ]
 
-pois = [x.replace('$DM', y) for y in ['0','1','2','10','11'] for x in temp_pois]
+pois = [x.replace('$DM', y) for y in ['0','1','10','11'] for x in temp_pois]
 
-tes=["CMS_scale_t_1prong_$YEAR", "CMS_scale_t_1prong1pizero_$YEAR", "CMS_scale_t_1prong2pizero_$YEAR", "CMS_scale_t_3prong_$YEAR", "CMS_scale_t_3prong1pizero_$YEAR"]
+tes=["CMS_scale_t_1prong_$YEAR", "CMS_scale_t_1prong1pizero_$YEAR", "CMS_scale_t_3prong_$YEAR", "CMS_scale_t_3prong1pizero_$YEAR"]
 
 parser = ArgumentParser()
 parser.add_argument('-o', '--output_folder', dest='output_folder', type=str, default='', help="set output folder name")
@@ -150,8 +150,6 @@ if 'fit' in args.step or args.step == "all":
           key='CMS_scale_t_1prong_%s' % year
         if dm==1:
           key='CMS_scale_t_1prong1pizero_%s' % year
-        if dm==2:
-          key='CMS_scale_t_1prong2pizero_%s' % year
         if dm==10:
           key='CMS_scale_t_3prong_%s' % year
         if dm==11:
