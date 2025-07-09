@@ -478,7 +478,10 @@ print("Starting auto Rebinning")
 
 rebin = AutoRebin()
 #rebin.SetBinThreshold(100)
-rebin.SetBinUncertFraction(0.25)
+if era == "Run3_2022EE":
+  rebin.SetBinUncertFraction(0.25)
+else:
+  rebin.SetBinUncertFraction(0.3)
 rebin.SetRebinMode(1)
 rebin.SetPerformRebin(True)
 rebin.SetVerbosity(1)
