@@ -105,38 +105,38 @@ if dm_bins:
   cats['mt'] = []
   for i, dm in enumerate([0,1,10,11]):
     cats['mt'] += [
-    ((i+1)*100+1,  'mt_DM%i_tau_cp_mTLt65%s_pT_20_to_25'   % (dm,cat_extra)),
-    ((i+1)*100+2,  'mt_DM%i_tau_cp_mTLt65%s_pT_25_to_30'   % (dm,cat_extra)),
-    ((i+1)*100+3,  'mt_DM%i_tau_cp_mTLt65%s_pT_30_to_35'   % (dm,cat_extra)),
-    ((i+1)*100+4,  'mt_DM%i_tau_cp_mTLt65%s_pT_35_to_40'   % (dm,cat_extra)),
-    ((i+1)*100+5,  'mt_DM%i_tau_cp_mTLt65%s_pT_40_to_50'   % (dm,cat_extra)),
-    ((i+1)*100+6,  'mt_DM%i_tau_cp_mTLt65%s_pT_50_to_60'   % (dm,cat_extra)),
-    ((i+1)*100+7,  'mt_DM%i_tau_cp_mTLt65%s_pT_60_to_80'   % (dm,cat_extra)),
-    ((i+1)*100+8,  'mt_DM%i_tau_cp_mTLt65%s_pT_80_to_100'  % (dm,cat_extra)),
-    ((i+1)*100+9,  'mt_DM%i_tau_cp_mTLt65%s_pT_100_to_200' % (dm,cat_extra)),
+    ((i+1)*100+1,  'mt_DM%i_tau_mTLt65%s_pT_20_to_25'   % (dm,cat_extra)),
+    ((i+1)*100+2,  'mt_DM%i_tau_mTLt65%s_pT_25_to_30'   % (dm,cat_extra)),
+    ((i+1)*100+3,  'mt_DM%i_tau_mTLt65%s_pT_30_to_35'   % (dm,cat_extra)),
+    ((i+1)*100+4,  'mt_DM%i_tau_mTLt65%s_pT_35_to_40'   % (dm,cat_extra)),
+    ((i+1)*100+5,  'mt_DM%i_tau_mTLt65%s_pT_40_to_50'   % (dm,cat_extra)),
+    ((i+1)*100+6,  'mt_DM%i_tau_mTLt65%s_pT_50_to_60'   % (dm,cat_extra)),
+    ((i+1)*100+7,  'mt_DM%i_tau_mTLt65%s_pT_60_to_80'   % (dm,cat_extra)),
+    ((i+1)*100+8,  'mt_DM%i_tau_mTLt65%s_pT_80_to_100'  % (dm,cat_extra)),
+    ((i+1)*100+9,  'mt_DM%i_tau_mTLt65%s_pT_100_to_200' % (dm,cat_extra)),
     ]
 
     if useCRs:
       cats['mt'] += [
-      ((i+1)*100+11,  'mt_DM%i_tau_cp_mTGt70%s_pT_20_to_25'   % (dm,cat_extra)),
-      ((i+1)*100+12,  'mt_DM%i_tau_cp_mTGt70%s_pT_25_to_30'   % (dm,cat_extra)),
-      ((i+1)*100+13,  'mt_DM%i_tau_cp_mTGt70%s_pT_30_to_35'   % (dm,cat_extra)),
-      ((i+1)*100+14,  'mt_DM%i_tau_cp_mTGt70%s_pT_35_to_40'   % (dm,cat_extra)),
-      ((i+1)*100+15,  'mt_DM%i_tau_cp_mTGt70%s_pT_40_to_50'   % (dm,cat_extra)),
-      ((i+1)*100+16,  'mt_DM%i_tau_cp_mTGt70%s_pT_50_to_60'   % (dm,cat_extra)),
-      ((i+1)*100+17,  'mt_DM%i_tau_cp_mTGt70%s_pT_60_to_80'   % (dm,cat_extra)),
-      ((i+1)*100+18,  'mt_DM%i_tau_cp_mTGt70%s_pT_80_to_100'  % (dm,cat_extra)),
-      ((i+1)*100+19,  'mt_DM%i_tau_cp_mTGt70%s_pT_100_to_200' % (dm,cat_extra)),
+      ((i+1)*100+11,  'mt_DM%i_tau_mTGt70%s_pT_20_to_25'   % (dm,cat_extra)),
+      ((i+1)*100+12,  'mt_DM%i_tau_mTGt70%s_pT_25_to_30'   % (dm,cat_extra)),
+      ((i+1)*100+13,  'mt_DM%i_tau_mTGt70%s_pT_30_to_35'   % (dm,cat_extra)),
+      ((i+1)*100+14,  'mt_DM%i_tau_mTGt70%s_pT_35_to_40'   % (dm,cat_extra)),
+      ((i+1)*100+15,  'mt_DM%i_tau_mTGt70%s_pT_40_to_50'   % (dm,cat_extra)),
+      ((i+1)*100+16,  'mt_DM%i_tau_mTGt70%s_pT_50_to_60'   % (dm,cat_extra)),
+      ((i+1)*100+17,  'mt_DM%i_tau_mTGt70%s_pT_60_to_80'   % (dm,cat_extra)),
+      ((i+1)*100+18,  'mt_DM%i_tau_mTGt70%s_pT_80_to_100'  % (dm,cat_extra)),
+      ((i+1)*100+19,  'mt_DM%i_tau_mTGt70%s_pT_100_to_200' % (dm,cat_extra)),
       ]
-      #  ((i+1)*100+21,  'mt_DM%i_tau_cp_mTLt65%s_aiso_pT_20_to_25'   % (dm,cat_extra)),
-      #  ((i+1)*100+22,  'mt_DM%i_tau_cp_mTLt65%s_aiso_pT_25_to_30'   % (dm,cat_extra)),
-      #  ((i+1)*100+23,  'mt_DM%i_tau_cp_mTLt65%s_aiso_pT_30_to_35'   % (dm,cat_extra)),
-      #  ((i+1)*100+24,  'mt_DM%i_tau_cp_mTLt65%s_aiso_pT_35_to_40'   % (dm,cat_extra)),
-      #  ((i+1)*100+25,  'mt_DM%i_tau_cp_mTLt65%s_aiso_pT_40_to_50'   % (dm,cat_extra)),
-      #  ((i+1)*100+26,  'mt_DM%i_tau_cp_mTLt65%s_aiso_pT_50_to_60'   % (dm,cat_extra)),
-      #  ((i+1)*100+27,  'mt_DM%i_tau_cp_mTLt65%s_aiso_pT_60_to_80'   % (dm,cat_extra)),
-      #  ((i+1)*100+28,  'mt_DM%i_tau_cp_mTLt65%s_aiso_pT_80_to_100'  % (dm,cat_extra)),
-      #  ((i+1)*100+29,  'mt_DM%i_tau_cp_mTLt65%s_aiso_pT_100_to_200' % (dm,cat_extra)),
+      #  ((i+1)*100+21,  'mt_DM%i_tau_mTLt65%s_aiso_pT_20_to_25'   % (dm,cat_extra)),
+      #  ((i+1)*100+22,  'mt_DM%i_tau_mTLt65%s_aiso_pT_25_to_30'   % (dm,cat_extra)),
+      #  ((i+1)*100+23,  'mt_DM%i_tau_mTLt65%s_aiso_pT_30_to_35'   % (dm,cat_extra)),
+      #  ((i+1)*100+24,  'mt_DM%i_tau_mTLt65%s_aiso_pT_35_to_40'   % (dm,cat_extra)),
+      #  ((i+1)*100+25,  'mt_DM%i_tau_mTLt65%s_aiso_pT_40_to_50'   % (dm,cat_extra)),
+      #  ((i+1)*100+26,  'mt_DM%i_tau_mTLt65%s_aiso_pT_50_to_60'   % (dm,cat_extra)),
+      #  ((i+1)*100+27,  'mt_DM%i_tau_mTLt65%s_aiso_pT_60_to_80'   % (dm,cat_extra)),
+      #  ((i+1)*100+28,  'mt_DM%i_tau_mTLt65%s_aiso_pT_80_to_100'  % (dm,cat_extra)),
+      #  ((i+1)*100+29,  'mt_DM%i_tau_mTLt65%s_aiso_pT_100_to_200' % (dm,cat_extra)),
       
 
       cr_bins+=[(i+1)*100+j+10 for j in range(1,10) ]
@@ -199,8 +199,8 @@ for chn in channels:
 inclusive_bins = [1,2,3,4,5,6,7,8,9, 11,12,13,14,15,16,17,18,19]# , 21,22,23,24,25,26,27,28,29]
 dm0_bins = [101,102,103,104,105,106,107,108,109, 111,112,113,114,115,116,117,118,119]#, 121,122,123,124,125,126,127,128,129]
 dm1_bins = [201,202,203,204,205,206,207,208,209, 211,212,213,214,215,216,217,218,219]#, 221,222,223,224,225,226,227,228,229]
-dm10_bins = [401,402,403,404,405,406,407,408,409, 411,412,413,414,415,416,417,418,419]#, 421,422,423,424,425,426,427,428,429]
-dm11_bins = [501,502,503,504,505,506,507,508,509, 511,512,513,514,515,516,517,518,519]#, 521,522,523,524,525,526,527,528,529]
+dm10_bins = [301,302,303,304,305,306,307,308,309, 311,312,313,314,315,316,317,318,319]#, 321,322,323,324,325,326,327,328,329]
+dm11_bins = [401,402,403,404,405,406,407,408,409, 411,412,413,414,415,416,417,418,419]#, 421,422,423,424,425,426,427,428,429]
 
 all_mt_bins = inclusive_bins + dm0_bins + dm1_bins + dm10_bins + dm11_bins
 
@@ -478,7 +478,7 @@ print("Starting auto Rebinning")
 
 rebin = AutoRebin()
 #rebin.SetBinThreshold(100)
-rebin.SetBinUncertFraction(0.3)
+rebin.SetBinUncertFraction(0.25)
 rebin.SetRebinMode(1)
 rebin.SetPerformRebin(True)
 rebin.SetVerbosity(1)
