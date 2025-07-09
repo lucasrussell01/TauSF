@@ -228,7 +228,7 @@ fout = ROOT.TFile(output_folder+'/'+out_file,'RECREATE')
 for era in eras:
   dms = ['inclusive']
   if args.dm_bins: 
-    dms = [0,1,2,10,11]
+    dms = [0,1,10,11]
 
   for dm in dms:
  
@@ -380,7 +380,7 @@ tot_ndf=0.
 print("-"*50)
 if args.dm_bins:
   for era in eras:
-    for dm in [0,1,2,10,11]:
+    for dm in [0,1,10,11]:
 
       if args.split_fit:
         fit_func='pol1_split'
@@ -529,11 +529,6 @@ if args.dm_bins:
         CompareSystsPlot(fit_nom,systs_to_plot,output_folder+'/'+'uncerts_systs_tau_sf_DM%(dm)s_%(era)s' % vars()+extra_name)
         CompareSystsPlot(fit_nom,stats_to_plot,output_folder+'/'+'uncerts_stats_tau_sf_DM%(dm)s_%(era)s' % vars()+extra_name)
         dm_binned_strings[g.GetName()] = str(fit_nom.GetExpFormula('p')).replace('x','min(max(pt_2,20.),140.)')
-      if dm==2:
-        PlotSF(g, h_uncert_nom, 'tau_sf_DM%(dm)s_%(era)s' % vars()+extra_name, title='#tau^{ #pm} #rightarrow #pi^{ #pm} #pi^{ 0} #pi^{ 0} #nu_{#tau}, %(era)s' % vars(), output_folder=output_folder)
-        CompareSystsPlot(fit_nom,systs_to_plot,output_folder+'/'+'uncerts_systs_tau_sf_DM%(dm)s_%(era)s' % vars()+extra_name)
-        CompareSystsPlot(fit_nom,stats_to_plot,output_folder+'/'+'uncerts_stats_tau_sf_DM%(dm)s_%(era)s' % vars()+extra_name)
-        dm_binned_strings[g.GetName()] = str(fit_nom.GetExpFormula('p')).replace('x','min(max(pt_2,20.),140.)')
       if dm==10:
         PlotSF(g, h_uncert_nom, 'tau_sf_DM%(dm)s_%(era)s' % vars()+extra_name, title='#tau^{ #pm} #rightarrow #pi^{ #pm} #pi^{ #mp} #pi^{ #pm} #nu_{#tau}, %(era)s' % vars(), output_folder=output_folder)
         CompareSystsPlot(fit_nom,systs_to_plot,output_folder+'/'+'uncerts_systs_tau_sf_DM%(dm)s_%(era)s' % vars()+extra_name)
@@ -558,7 +553,7 @@ if args.dm_bins and args.saveJson:
   for era in eras:
     print(f'DM-binned SFs for era {era}:')
     out='((gen_match_2!=5) + (gen_match_2==5)*('
-    for dm in [0,1,2,10,11]:
+    for dm in [0,1,10,11]:
       out+='(tau_decay_mode_2==%i)*(%s)+' % (dm, dm_binned_strings['DM%i_%s' % (dm,era)])
     out=out[:-1]
     out+='))'

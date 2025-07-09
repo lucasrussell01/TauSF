@@ -60,7 +60,7 @@ if dm_bins:
         "rate_tauSF_DM$DM_pT100to200_$YEAR",
       ]
 
-      pois += [x.replace('$DM', y).replace('$YEAR', era) for y in ['0','1','2','10','11'] for x in temp_pois]
+      pois += [x.replace('$DM', y).replace('$YEAR', era) for y in ['0','1','10','11'] for x in temp_pois]
 
   #if args.pt_bins == 1:
   #   pois = ['rate_tauSF_DM0_pT20to25_2017','rate_tauSF_DM1_pT20to25_2017','rate_tauSF_DM10_pT20to25_2017','rate_tauSF_DM11_pT20to25_2017']
@@ -107,7 +107,7 @@ sf_map = {}
 for e in eras:
 
   if dm_bins:
-    for dm in [0,1,2,10,11]: graph_values['%i_%s' % (dm,e)] = []
+    for dm in [0,1,10,11]: graph_values['%i_%s' % (dm,e)] = []
   else: 
     graph_values['inclusive_%s' % e] = []  
 
