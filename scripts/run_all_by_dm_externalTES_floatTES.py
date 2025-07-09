@@ -135,7 +135,7 @@ if 'fit' in args.step or args.step == "all":
   for year in eras:
     fout = ROOT.TFile(
         f"outputs/{output_dir}/cmb/TauES_dm_DeepTau2018v2p5VSjet_{year}_VSjet{args.wp.capitalize()}_VSele"
-        f"{'Tight' if args.tightVsEle else 'VLoose'}.root",
+        f"{'Tight' if args.tightVsEle else 'VVLoose'}.root",
         "RECREATE"
     )
     h = ROOT.TH1D('tes','tes',12,0,12)
@@ -143,7 +143,7 @@ if 'fit' in args.step or args.step == "all":
     h.GetYaxis().SetTitle("SF")
     for dm in range(0,12):
       bin_i=h.FindBin(dm)
-      if dm not in [0,1,2,10,11]:
+      if dm not in [0,1,10,11]:
         h.SetBinContent(bin_i,1.)
       else:
         if dm==0:
@@ -208,7 +208,7 @@ if "plot" in args.step or args.step == "all":
   if args.tightVsEle:
     json_out="--saveJson --wp=%svsjet_tightvsele" % args.wp
   else:
-    json_out="--saveJson --wp=%svsjet_vloosevsele" % args.wp
+    json_out="--saveJson --wp=%svsjet_vvloosevsele" % args.wp
 
   for v in variations:
     os.system('python3 scripts/makeSFGraphs.py  -f outputs/%s/cmb/higgsCombine.ztt.bestfit.singles.postfit%s.MultiDimFit.mH125.root --dm-bins %s %s --output_folder outputs/%s/' %(output_dir, v, json_out, eras_str,output_dir))
