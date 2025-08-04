@@ -238,11 +238,11 @@ cb.cp().channel(['mt']).process(['ZTT','TTT','TTL','VVT','VVL']).bin_id(dm11_bin
 cb.cp().channel(['mt']).process(['ZL']).bin_id(dm0_bins+inclusive_bins).AddSyst(cb, "CMS_scale_mu_1prong_$ERA", "shape", ch.SystMap()(1.00))
 cb.cp().channel(['mt']).process(['ZL']).bin_id(dm1_bins+inclusive_bins).AddSyst(cb, "CMS_scale_mu_1prong1pizero_$ERA", "shape", ch.SystMap()(1.00))
 
-if "Run3_2023" in eras:
-  print(f"\n\n\n WARNING, temp fix for 23 \n\n\n\n")
-  cb.cp().channel(['mt']).process(['ZL']).bin_id([b for b in dm2_bins if b != 305]+inclusive_bins).AddSyst(cb, "CMS_scale_mu_1prong2pizero_$ERA", "shape", ch.SystMap()(1.00))
+if ("Run3_2023" in eras) and (not args.tightVsEle):
+  print(f"\n\n\n WARNING,  fix for 23 \n\n\n\n")
+  cb.cp().channel(['mt']).process(['ZL']).bin_id([b for b in dm2_bins if (b != 309)]+inclusive_bins).AddSyst(cb, "CMS_scale_mu_1prong2pizero_$ERA", "shape", ch.SystMap()(1.00))
 else:
-  print(f"\n\n\n Using bin 305 as usual \n\n\n\n")
+  print(f"\n\n\n Using all bins as usual \n\n\n\n")
   cb.cp().channel(['mt']).process(['ZL']).bin_id(dm2_bins+inclusive_bins).AddSyst(cb, "CMS_scale_mu_1prong2pizero_$ERA", "shape", ch.SystMap()(1.00))
 
 #MET related uncertainties
@@ -254,6 +254,10 @@ if any(era in eras for era in ['2016_preVFP', '2016_postVFP', '2017', '2018','Ru
 cb.cp().channel(['mt']).process(['TTJ','VVJ','ZJ']).bin_id(inclusive_bins).AddSyst(cb, "CMS_j_fake_t", "lnN", ch.SystMap()(1.2))
 cb.cp().channel(['mt']).process(['TTJ','VVJ','ZJ']).bin_id(dm0_bins).AddSyst(cb, "CMS_j_fake_t_DM0", "lnN", ch.SystMap()(1.2))
 cb.cp().channel(['mt']).process(['TTJ','VVJ','ZJ']).bin_id(dm1_bins).AddSyst(cb, "CMS_j_fake_t_DM1", "lnN", ch.SystMap()(1.2))
+# if ("Run3_2023BPix" in eras) and args.tightVsEle:
+#   print(f"\n\n\n WARNING, temp fix for 23BPix \n\n\n\n")
+#   cb.cp().channel(['mt']).process(['TTJ','VVJ','ZJ']).bin_id([b for b in dm2_bins if (b != 309)]+inclusive_bins).AddSyst(cb, "CMS_j_fake_t_DM2", "lnN", ch.SystMap()(1.2))
+# else:
 cb.cp().channel(['mt']).process(['TTJ','VVJ','ZJ']).bin_id(dm2_bins).AddSyst(cb, "CMS_j_fake_t_DM2", "lnN", ch.SystMap()(1.2))
 cb.cp().channel(['mt']).process(['TTJ','VVJ','ZJ']).bin_id(dm10_bins).AddSyst(cb, "CMS_j_fake_t_DM10", "lnN", ch.SystMap()(1.2))
 cb.cp().channel(['mt']).process(['TTJ','VVJ','ZJ']).bin_id(dm11_bins).AddSyst(cb, "CMS_j_fake_t_DM11", "lnN", ch.SystMap()(1.2))
@@ -417,7 +421,11 @@ else:
 
 #shape uncertainties affecting W+jets:
 # for W+jets a shape uncertainty due to the energy scale of the j->tauh fakes, we assume a 50% correlation for this syst so we add it scaled by 1/sqrt(2) and then we will clone it later for each era so that adding the correlated and uncorrelated parts in quadrature will equal 1
-cb.cp().channel(['mt']).process(['W']).AddSyst(cb, "CMS_scale_jfake", "shape", ch.SystMap()(0.707))
+if ("Run3_2023BPix" in eras) and args.tightVsEle:
+  print(f"WARNING: REMOVING CMS_SCALE_JFAKE EMPTY BINS")
+  cb.cp().channel(['mt']).process(['W']).bin_id([b for b in all_mt_bins if (b != 309)]).AddSyst(cb, "CMS_scale_jfake", "shape", ch.SystMap()(0.707))
+else:
+  cb.cp().channel(['mt']).process(['W']).AddSyst(cb, "CMS_scale_jfake", "shape", ch.SystMap()(0.707))
 
 # set sensible ranges for all rate params
 for era in eras:
@@ -466,14 +474,20 @@ for era in eras:
 if dm_bins:
   cb.cp().bin_id(dm0_bins).RenameSystematic(cb,'CMS_scale_jfake','CMS_scale_jfake_DM0')
   cb.cp().bin_id(dm1_bins).RenameSystematic(cb,'CMS_scale_jfake','CMS_scale_jfake_DM1')
-  cb.cp().bin_id(dm2_bins).RenameSystematic(cb,'CMS_scale_jfake','CMS_scale_jfake_DM2')
+  if ("Run3_2023BPix" in eras) and args.tightVsEle:
+    cb.cp().bin_id([b for b in dm2_bins if (b != 309)]).RenameSystematic(cb,'CMS_scale_jfake','CMS_scale_jfake_DM2')
+  else:
+    cb.cp().bin_id(dm2_bins).RenameSystematic(cb,'CMS_scale_jfake','CMS_scale_jfake_DM2')
   cb.cp().bin_id(dm10_bins).RenameSystematic(cb,'CMS_scale_jfake','CMS_scale_jfake_DM10')
   cb.cp().bin_id(dm11_bins).RenameSystematic(cb,'CMS_scale_jfake','CMS_scale_jfake_DM11')
 
   for era in eras:
     cb.cp().bin_id(dm0_bins).RenameSystematic(cb,'CMS_scale_jfake_%s' % era,'CMS_scale_jfake_DM0_%s' % era)
     cb.cp().bin_id(dm1_bins).RenameSystematic(cb,'CMS_scale_jfake_%s' % era,'CMS_scale_jfake_DM1_%s' % era)
-    cb.cp().bin_id(dm2_bins).RenameSystematic(cb,'CMS_scale_jfake_%s' % era,'CMS_scale_jfake_DM2_%s' % era)
+    if ("Run3_2023BPix" in eras) and args.tightVsEle:
+      cb.cp().bin_id([b for b in dm2_bins if (b != 309)]).RenameSystematic(cb,'CMS_scale_jfake_%s' % era,'CMS_scale_jfake_DM2_%s' % era)
+    else:
+      cb.cp().bin_id(dm2_bins).RenameSystematic(cb,'CMS_scale_jfake_%s' % era,'CMS_scale_jfake_DM2_%s' % era)
     cb.cp().bin_id(dm10_bins).RenameSystematic(cb,'CMS_scale_jfake_%s' % era,'CMS_scale_jfake_DM10_%s' % era)
     cb.cp().bin_id(dm11_bins).RenameSystematic(cb,'CMS_scale_jfake_%s' % era,'CMS_scale_jfake_DM11_%s' % era)
 
@@ -491,7 +505,7 @@ print("Starting auto Rebinning")
 
 rebin = AutoRebin()
 #rebin.SetBinThreshold(100)
-rebin.SetBinUncertFraction(0.3)
+rebin.SetBinUncertFraction(0.2)
 rebin.SetRebinMode(1)
 rebin.SetPerformRebin(True)
 rebin.SetVerbosity(1)
