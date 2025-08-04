@@ -40,9 +40,23 @@ def splitHistogramsAndWriteToFile(infile, outfile, dirname):
                 # Now rename it to match the original 2D name
                 hnew.SetName(name)
 
+                if b_lo >= 100:
+                    print('Rebinning by factor 4 (pT>100)')
+                    h_rebinned = hnew.Rebin(4, "h_rebinned")
+                    bin_edges = [h_rebinned.GetXaxis().GetBinLowEdge(i) for i in range(1, h_rebinned.GetNbinsX() + 2)]
+                    print(bin_edges)
+                elif b_lo >= 50:
+                    print('Rebinning by factor 2 (pT>50)')
+                    h_rebinned = hnew.Rebin(2, "h_rebinned")
+                    bin_edges = [h_rebinned.GetXaxis().GetBinLowEdge(i) for i in range(1, h_rebinned.GetNbinsX() + 2)]
+                    print(bin_edges)
+                else:
+                    h_rebinned = hnew
+                h_rebinned.SetName(name)
+
                 # Write into a different subdirectory so it won't clash on disk
                 newdirname = '%s_pT_%i_to_%i' % (dirname, int(b_lo), int(b_hi))
-                WriteToTFile(hnew, outfile, newdirname + "/" + name)
+                WriteToTFile(h_rebinned, outfile, newdirname + "/" + name)
 
 def findAvepT(infile, dirname):
     '''Find the average pT of the tau in each pT bin'''
