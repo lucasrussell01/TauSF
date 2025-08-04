@@ -186,6 +186,10 @@ if 'fit' in args.step or args.step == "all":
 
   os.system('combineTool.py -m 125 -M MultiDimFit --redefineSignalPOIs \"%(pois_str)s\" --saveWorkspace --X-rtd MINIMIZER_analytic --expectSignal 0 --cminDefaultMinimizerStrategy 0 --cminDefaultMinimizerTolerance 0.1 --algo singles --cl=0.68 --there -d outputs/%(output_dir)s/cmb/higgsCombine.ztt.bestfit.singles.MultiDimFit.mH125.root -n ".ztt.bestfit.singles.postfit.freeze_byErasAndBins_byBins_byDM" --snapshotName MultiDimFit   --freezeNuisanceGroups TES,byErasAndBins,byBins,byDM0,byDM1,byDM10,byDM11 %(tes_ranges_str)s' % vars())
 
+  print("Running no TES fit")
+  # Fit with TES at nominal values (1) and frozen
+  os.system('combineTool.py -m 125 -M MultiDimFit --redefineSignalPOIs \"%(pois_str)s\" --X-rtd MINIMIZER_analytic --expectSignal 0 --cminDefaultMinimizerStrategy 0 --cminDefaultMinimizerTolerance 0.1 --algo singles --cl=0.68 --there -d outputs/%(output_dir)s/cmb/higgsCombine.ztt.bestfit.singles.MultiDimFit.mH125.root -n ".ztt.bestfit.singles.postfit.no_TES_shift" --snapshotName MultiDimFit --freezeNuisanceGroups TES %(tes_ranges_str)s --saveFitResult' % vars())
+
 if "plot" in args.step or args.step == "all":
   # produce graphs containing fitted SF for all uncertainty variations
   print("Making graphs with decomposed uncertainties")
